@@ -13,9 +13,18 @@ namespace Task_20_10.Helpers
         public AutoMapperProfiles()
         {
             CreateMap<Race, RaceDto>();
+            CreateMap<Race, RaceForAddDto>();
+            CreateMap<Race, RaceForReturnDto>();
             CreateMap<Participant, ParticipantForAddDto>();
+            CreateMap<Participant, ParticipantforResultDto>();
             CreateMap<Participant, ParticipantDto>();
             CreateMap<Result, ResultDto>();
+            CreateMap<Result, ResultForAddDto>();
+            CreateMap<RaceForAddDto, Race>();
+            CreateMap<ParticipantForAddDto, Participant>();
+            CreateMap<ResultForUpdateDto, Result>();
+            CreateMap<RaceForUpdateDto, Race>();
+            CreateMap<ParticipantForUpdateDto, Participant>();
         }
     }
 }

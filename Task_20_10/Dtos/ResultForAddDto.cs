@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace Task_20_10.Dtos
 {
-    public class ResultDto
+    public class ResultForAddDto
     {
-        [Key]
-        public int Id { get; set; }
+       
 
         public string Status { get; set; }
-        public TimeSpan Time { get; set; } 
+        public TimeSpan Time { get; set; } // The result of the race
         public Guid ParticipantId { get; set; }
     }
 }

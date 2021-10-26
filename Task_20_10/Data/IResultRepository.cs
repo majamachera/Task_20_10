@@ -6,9 +6,10 @@ using Task_20_10.Models;
 
 namespace Task_20_10.Data
 {
-    interface IResultRepository : IGenericRepository
+    public interface IResultRepository : IGenericRepository
     {
         Task<Result> GetResultAsync(int id);
+        Task<Result> GetThisResultAsync(int id);
         Task <IEnumerable<Participant>> GetResultsFromThatIdRaceAsync(Guid idRace);
     }
 }

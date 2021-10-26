@@ -17,10 +17,12 @@ namespace Task_20_10.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // configures one-to-many relationship
+            
             modelBuilder.Entity<Participant>()
                 .HasOne(s => s.Race)
-                .WithMany(g => g.Participants);
+                .WithMany(g => g.Participants)
+                .HasForeignKey(s => s.RaceId);
+
         }
     }
 }

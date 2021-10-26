@@ -28,15 +28,15 @@ namespace Task_20_10.Controllers
             public async Task<IActionResult> GetRacesAsync()
             {
                 var races = await _repo.GetRacesAsync();
-                var mappedraces = _mapper.Map<IEnumerable<RaceDto>>(races);
+                var mappedraces = _mapper.Map<IEnumerable<RaceForReturnDto>>(races);
                 return Ok(mappedraces);
             }
 
-            [HttpGet("rece/{id}")]
+            [HttpGet("race/{id}")]
             public async Task<IActionResult> GetRaceAsync(Guid id)
             {
                 var thisRace = await _repo.GetRaceAsync(id);
-                var mappedThisRace = _mapper.Map<RaceDto>(thisRace);
+                var mappedThisRace = _mapper.Map<RaceForReturnDto>(thisRace);
                 return Ok(mappedThisRace);
             }
             [HttpDelete("race/{id}")]
@@ -49,7 +49,7 @@ namespace Task_20_10.Controllers
                 return BadRequest("błąd w usunięciu");
             }
         [HttpPost("/race")]
-        public async Task<IActionResult> AddRaceAsync([FromBody] RaceDto RaceDto)
+        public async Task<IActionResult> AddRaceAsync([FromBody] RaceForAddDto RaceDto)
             {
                 RaceDto.Name = RaceDto.Name.ToLower();
                 var RacetoCreate = new Race();
@@ -57,6 +57,15 @@ namespace Task_20_10.Controllers
                 return Ok(CreatedRace);
 
             }
+        [HttpPut("race/{id}")]
+        public async Task<IActionResult> UpdateRace(Guid id, RaceForUpdateDto RaceForUpdateDto)
+        {
+            var racefromrepo = await _repo.GetRaceAsync(id);
+            var zmapowany = _mapper.Map(RaceForUpdateDto, racefromrepo);
+            if (await _repo.SaveAllAsync())
+                return Ok(zmapowany);
+            throw new Exception("blad w update");
+        }
         
     }
 }

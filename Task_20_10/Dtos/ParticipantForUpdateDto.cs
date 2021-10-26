@@ -7,11 +7,11 @@ using Task_20_10.Models;
 
 namespace Task_20_10.Dtos
 {
-    public class ParticipantForAddDto
+    public class ParticipantForUpdateDto
     {
         public string Name { get; set; }
         public string Surname { get; set; }
         public bool Payed { get; set; }
-        public Guid RaceId { get; set; }
+
     }
 }

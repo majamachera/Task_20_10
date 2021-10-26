@@ -54,5 +54,10 @@ namespace Task_20_10.Data
             return randomNumber;
         }
 
+        public async Task<Participant> GetThisParticipantAsync(Guid id)
+        {
+            var participant = await _context.Participants.Include(x => x.Result).FirstOrDefaultAsync(x => x.ParticipantId == id);
+            return participant;
+        }
     }
 }

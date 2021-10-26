@@ -12,7 +12,7 @@ namespace Task_20_10.Data
         {
             _context = context;
         }
-        public void DelateAsync<T>(T entity) where T : class
+        public void DelateAsync<T>(T entity) 
         {
             _context.Remove(entity);
         }

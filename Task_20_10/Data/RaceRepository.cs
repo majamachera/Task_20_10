@@ -34,7 +34,7 @@ namespace Task_20_10.Data
 
         public async Task<IEnumerable<Race>> GetRacesAsync()
         {
-            var races = await _context.Races.Include(x => x.Participants).ToListAsync();
+            var races = await _context.Races.ToListAsync();
             return races;
         }
 

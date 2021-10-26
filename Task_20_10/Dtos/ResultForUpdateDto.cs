@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace Task_20_10.Dtos
 {
-    public class ResultDto
+    public class ResultForUpdateDto
     {
-        [Key]
-        public int Id { get; set; }
+       
 
         public string Status { get; set; }
         public TimeSpan Time { get; set; } 
-        public Guid ParticipantId { get; set; }
     }
 }

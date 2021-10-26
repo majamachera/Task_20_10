@@ -10,7 +10,7 @@ using Task_20_10.Models;
 
 namespace Task_20_10.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     [ApiController]
     public class ParticipantController : ControllerBase
     {
@@ -27,7 +27,6 @@ namespace Task_20_10.Controllers
         [HttpGet("participants/{id}")]
         public async Task<IActionResult> GetParticipantsAsync(Guid id)
         {
-            //var thatRace = await _reporace.GetRaceAsync(id);
             var participants = await _repo.GetParticipantsAsync(id);
             var mappedparticipants = _mapper.Map<IEnumerable<ParticipantDto>>(participants);
             return Ok(mappedparticipants);
@@ -49,6 +48,7 @@ namespace Task_20_10.Controllers
                 return Ok();
             return BadRequest("błąd w usunięciu");
         }
+        
         [HttpPost("/participant")]
         public async Task<IActionResult> AddParticipantAsync(ParticipantForAddDto ParticipantForAddDto)
         {
@@ -61,31 +61,34 @@ namespace Task_20_10.Controllers
             var raceFromRepo = await _reporace.GetRaceAsync(ParticipantForAddDto.RaceId);
             var ParticipantForAdd = new Participant
             {
-                ParticipantId = ParticipantForAddDto.ParticipantId,
+               
                 Name = ParticipantForAddDto.Name,
                 Surname = ParticipantForAddDto.Surname,
                 Payed = ParticipantForAddDto.Payed,
                 Number = await _repo.GenerateNumber(),
-                RaceId = ParticipantForAddDto.RaceId
+               
             };
             var participantmap = _mapper.Map<Participant>(ParticipantForAdd);
             raceFromRepo.Participants.Add(participantmap);
 
             if (await _repo.SaveAllAsync())
             {
-                var user = _mapper.Map<ParticipantDto>(participantmap);
-                return CreatedAtRoute("GetUser", new { id = participantmap.ParticipantId }, user);
+
+                return Ok();
                
             }
             return BadRequest("nzapisywanie uzytkownika do wyscigu");
         }
-        [HttpGet("id", Name = "GetParticipant")]
-        public async Task<IActionResult> GetUserAsync(Guid id)
+        [HttpPut("participant/{id}")]
+        public async Task<IActionResult> UpdateParticipant(Guid id, ParticipantForUpdateDto ParticipantForUpdateDto)
         {
-            var user = await _repo.GetParticipantAsync(id);
-            var UserforReturn = _mapper.Map<ParticipantForAddDto>(user);
-            return Ok(UserforReturn);
+            var Participantfromrepo = await _repo.GetThisParticipantAsync(id);
+            var zmapowany = _mapper.Map(ParticipantForUpdateDto, Participantfromrepo);
+            if (await _repo.SaveAllAsync())
+                return Ok(zmapowany);
+            throw new Exception("nie udało sie");
         }
+     
 
     }
 }

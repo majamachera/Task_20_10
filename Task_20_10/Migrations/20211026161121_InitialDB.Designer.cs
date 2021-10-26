@@ -9,7 +9,7 @@ using Task_20_10.Data;
 namespace Task_20_10.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20211026132718_InitialDB")]
+    [Migration("20211026161121_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,13 +99,11 @@ namespace Task_20_10.Migrations
 
             modelBuilder.Entity("Task_20_10.Models.Result", b =>
                 {
-                    b.HasOne("Task_20_10.Models.Participant", "Participant")
+                    b.HasOne("Task_20_10.Models.Participant", null)
                         .WithOne("Result")
                         .HasForeignKey("Task_20_10.Models.Result", "ParticipantId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Participant");
                 });
 
             modelBuilder.Entity("Task_20_10.Models.Participant", b =>

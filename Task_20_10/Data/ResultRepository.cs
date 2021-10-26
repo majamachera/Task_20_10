@@ -22,10 +22,14 @@ namespace Task_20_10.Data
 
         public async Task<IEnumerable<Participant>> GetResultsFromThatIdRaceAsync(Guid idRace)
         {
-            var results = await _context.Participants.Include(x => x.Result.Time).Where(x => x.RaceId == idRace).OrderBy(x => x.Result.Time).ToListAsync();
-                //Where(x => x.ParticipantId == idRace).OrderByDescending(x =>x.Time).ToListAsync();
+            var results = await _context.Participants.Include(x => x.Result).Where(x => x.RaceId == idRace).ToListAsync();
             return results;
         }
 
+        public async Task<Result> GetThisResultAsync(int id)
+        {
+            var result = await _context.Results.FirstOrDefaultAsync(x => x.Id == id);
+            return result;
+        }
     }
 }
