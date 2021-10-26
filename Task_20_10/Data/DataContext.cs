@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,12 @@ namespace Task_20_10.Data
         public DbSet<Participant> Participants { get; set; }
         public DbSet<Result> Results { get; set; }
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            // configures one-to-many relationship
+            modelBuilder.Entity<Participant>()
+                .HasOne(s => s.Race)
+                .WithMany(g => g.Participants);
+        }
     }
 }

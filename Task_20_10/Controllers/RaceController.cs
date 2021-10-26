@@ -49,11 +49,11 @@ namespace Task_20_10.Controllers
                 return BadRequest("błąd w usunięciu");
             }
         [HttpPost("/race")]
-        public async Task<IActionResult> AddRaceAsync([FromBody] RaceForAdd RaceForAddDto)
+        public async Task<IActionResult> AddRaceAsync([FromBody] RaceDto RaceDto)
             {
-                RaceForAddDto.Name = RaceForAddDto.Name.ToLower();
+                RaceDto.Name = RaceDto.Name.ToLower();
                 var RacetoCreate = new Race();
-                var CreatedRace = await _repo.AddRaceAsync(RacetoCreate, RaceForAddDto.Name, RaceForAddDto.Location);
+                var CreatedRace = await _repo.AddRaceAsync(RacetoCreate, RaceDto.Name, RaceDto.Location);
                 return Ok(CreatedRace);
 
             }

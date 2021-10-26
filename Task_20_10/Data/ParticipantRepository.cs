@@ -19,7 +19,7 @@ namespace Task_20_10.Data
 
         public async Task<Participant> GetParticipantAsync(Guid id)
         {
-            var participant = await _context.Participants.FirstOrDefaultAsync(x => x.ParticipantId == id);
+            var participant = await _context.Participants.Include(x => x.Result).FirstOrDefaultAsync(x => x.ParticipantId == id);
             return participant;
         }
 

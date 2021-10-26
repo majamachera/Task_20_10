@@ -19,6 +19,7 @@ namespace Task_20_10.Models
         public bool Payed { get; set; }
         public int Number { get; set; } //Ranom Number from 0-1000 to be printed on the participant shirt. 
         public Guid RaceId { get; set; }
+        public Race Race { get; set; }
 
     }
 }
