@@ -24,10 +24,10 @@ namespace Task_20_10.Controllers
             _mapper = mapper;
             _repo = repo;
         }
-        [HttpGet("participants/{id}")]
-        public async Task<IActionResult> GetParticipantsAsync(Guid id)
+        [HttpGet("participants/{Raceid}")]
+        public async Task<IActionResult> GetParticipantsAsync(Guid Raceid)
         {
-            var participants = await _repo.GetParticipantsAsync(id);
+            var participants = await _repo.GetParticipantsAsync(Raceid);
             var mappedparticipants = _mapper.Map<IEnumerable<ParticipantDto>>(participants);
             return Ok(mappedparticipants);
         }
@@ -39,16 +39,16 @@ namespace Task_20_10.Controllers
             var mappedThisParticipant = _mapper.Map<ParticipantDto>(thisParticipant);
             return Ok(mappedThisParticipant);
         }
-        [HttpDelete("participant/{id}")]
-        public async Task<IActionResult> DeleteParticipantAsync(Guid id)
+        [HttpDelete("participant/{Raceid}")]
+        public async Task<IActionResult> DeleteParticipantAsync(Guid Raceid)
         {
-            var thisParticipant = await _repo.GetParticipantAsync(id);
-            _repo.DelateAsync(thisParticipant);
+            var thisParticipants = await _repo.GetParticipantAsync(Raceid);
+            _repo.DelateAsync(thisParticipants);
             if (await _repo.SaveAllAsync())
                 return Ok();
             return BadRequest("błąd w usunięciu");
         }
-        
+       
         [HttpPost("/participant")]
         public async Task<IActionResult> AddParticipantAsync(ParticipantForAddDto ParticipantForAddDto)
         {

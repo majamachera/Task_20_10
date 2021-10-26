@@ -25,11 +25,11 @@ namespace Task_20_10.Controllers
             _mapper = mapper;
             _repo = repo;
         }
-        [HttpGet("resultsFromRace/{id}")]
-        public async Task<IActionResult> GetResultsAsync(Guid id)
+        [HttpGet("resultsFromRace/{Raceid}")]
+        public async Task<IActionResult> GetResultsAsync(Guid Raceid)
         {
             //var thatParticipant = await _repoparticipant.GetParticipantAsync(id);
-            var results = await _repo.GetResultsFromThatIdRaceAsync(id);
+            var results = await _repo.GetResultsFromThatIdRaceAsync(Raceid);
             var sortedResults = results.OrderBy(x => x.Result.Time.ToString().Length).ThenBy(e => e.Result.Time);
             var mappedresults = _mapper.Map<IEnumerable<ParticipantforResultDto>>(sortedResults);
             return Ok(mappedresults);
